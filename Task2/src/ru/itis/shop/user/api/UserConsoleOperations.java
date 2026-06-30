@@ -60,12 +60,10 @@ public class UserConsoleOperations {
 
         System.out.println("Введите email пользователя");
         String email = scanner.nextLine();
+        System.out.println("Введите новое описание профиля");
+        String description = scanner.nextLine();
 
-        Optional<User> user = userService.findByEmail(email);
-        if (user.isPresent()) {
-            System.out.println("Введите новое описание профиля");
-            String description = scanner.nextLine();
-            userService.updateDescription(user.get(), description);
+        if (userService.updateDescription(userService.findByEmail(email), description)) {
             System.out.println("Описание обновлено");
         } else {
             System.out.println("Пользователь не найден");

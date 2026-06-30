@@ -34,8 +34,13 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
-    public void updateDescription(User user, String description) {
-        user.setProfileDescription(description);
-        userRepository.update(user);
+    public boolean updateDescription(Optional<User> user, String description) {
+        if (!user.isPresent()) {
+            return false;
+        }
+        User user1 = user.get();
+        user1.setProfileDescription(description);
+        userRepository.update(user1);
+        return true;
     }
 }
